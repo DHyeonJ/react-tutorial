@@ -1,8 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Header from "../common/Header";
 import Container from "../common/Container";
+import { useNavigate, useParams } from "react-router-dom";
+import { nanoid } from "nanoid";
 
-export default function Edit() {
+export default function Edit({ contents, setContents }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const newData = contents.find((item) => item.id === id);
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
   return (
     <Fragment>
       <Header />
@@ -16,11 +23,15 @@ export default function Edit() {
           }}
           onSubmit={(e) => {
             e.preventDefault();
-            console.log("제출!");
+            navigate("/");
           }}
         >
           <div>
             <input
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
               placeholder="제목"
               style={{
                 width: "100%",
@@ -39,6 +50,10 @@ export default function Edit() {
             }}
           >
             <textarea
+              value={content}
+              onChange={(e) => {
+                setContent(...contents, e.target.value);
+              }}
               placeholder="내용"
               style={{
                 resize: "none",
@@ -61,6 +76,17 @@ export default function Edit() {
               borderRadius: "12px",
               backgroundColor: "orange",
               cursor: "pointer",
+            }}
+            onClick={() => {
+              setContents([
+                ...contents,
+                {
+                  id: nanoid(),
+                  title: setTitle.title,
+                  content: setContent.content,
+                  author: "작성자",
+                },
+              ]);
             }}
           >
             수정하기

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Header from "../common/Header";
 import Container from "../common/Container";
+import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 
-export default function Create() {
+export default function Create({ contents, setContents }) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+
   return (
     <>
       <Header />
@@ -18,10 +24,15 @@ export default function Create() {
           onSubmit={(e) => {
             e.preventDefault();
             console.log("제출!");
+            navigate("/");
           }}
         >
           <div>
             <input
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
               placeholder="제목"
               style={{
                 width: "100%",
@@ -40,6 +51,10 @@ export default function Create() {
             }}
           >
             <textarea
+              value={content}
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
               placeholder="내용"
               style={{
                 resize: "none",
@@ -62,6 +77,17 @@ export default function Create() {
               borderRadius: "12px",
               backgroundColor: "skyblue",
               cursor: "pointer",
+            }}
+            onClick={() => {
+              setContents([
+                ...contents,
+                {
+                  id: nanoid(),
+                  title,
+                  content,
+                  author: "작성자",
+                },
+              ]);
             }}
           >
             추가하기

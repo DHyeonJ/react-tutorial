@@ -1,10 +1,20 @@
 import React from "react";
 import Header from "../common/Header";
 import Container from "../common/Container";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function Detail() {
+export default function Detail({ contents, setContents }) {
   const navigate = useNavigate();
+  const { id } = useParams();
+  // 배열은 기본적으로 .id 해서 배열의 값을 불러올 수 없다.
+  // 내가 실수 한 것은 contents에서 find함수를 통해 데이터 찾겠다고 해놓고 안에서 item.id랑 contents.id를 비교한다고 해서
+  // find를 왜 썼는지...? =>
+  const newData = contents.find((item) => item.id === id);
+  const onDeleteHandler = (id) => {
+    const deleteData = contents.filter((item) => item.id !== id);
+    setContents(deleteData);
+    alert(deleteData);
+  };
   return (
     <>
       <Header />
@@ -16,7 +26,7 @@ export default function Detail() {
             padding: "12px",
           }}
         >
-          제목
+          {newData.title}
         </h1>
         <div
           style={{
@@ -26,10 +36,7 @@ export default function Detail() {
             padding: "12px",
           }}
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad doloribus
-          blanditiis vitae sapiente. Expedita delectus nihil animi pariatur,
-          labore quod officiis dolor fugit. Mollitia quod, delectus velit
-          deleniti nihil veniam!
+          {newData.content}
         </div>
         <div
           style={{
@@ -40,7 +47,7 @@ export default function Detail() {
         >
           <button
             onClick={() => {
-              navigate("/edit");
+              navigate(`/edit/${newData.id}`);
             }}
             style={{
               border: "none",
@@ -57,6 +64,7 @@ export default function Detail() {
           <button
             onClick={() => {
               alert("삭제할까?");
+              // onDeleteHandler();
             }}
             style={{
               border: "none",
