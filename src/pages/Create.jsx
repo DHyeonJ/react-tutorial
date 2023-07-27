@@ -21,6 +21,7 @@ export default function Create({ contents, setContents }) {
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
+          // form 안에 버튼이 있으면 버튼 클릭시 onSubmit이 실행된다. 온서브밋에 다 작성하는게 낫다!
           onSubmit={(e) => {
             e.preventDefault();
             console.log("제출!");

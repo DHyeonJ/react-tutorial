@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Header from "../common/Header";
 import Container from "../common/Container";
 
-export default function Main({ contents }) {
+export default function Main({ contents, setContents }) {
   const navigate = useNavigate();
+  const onDeleteHandler = (id) => {
+    const deleteData = contents.filter((item) => item.id !== id);
+    setContents(deleteData);
+  };
   return (
     <>
       <Header />
@@ -98,6 +102,8 @@ export default function Main({ contents }) {
                 <button
                   onClick={() => {
                     alert("삭제할까?");
+                    onDeleteHandler(item.id);
+                    navigate("/");
                   }}
                   style={{
                     border: "none",

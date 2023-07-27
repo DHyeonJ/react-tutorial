@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import { nanoid } from "nanoid";
 
 function App() {
+  // 객체형태로 담겨져있는 배열
   const [contents, setContents] = useState([
     {
       id: nanoid(),
@@ -35,31 +36,18 @@ function App() {
       author: "둘리",
     },
   ]);
-  // const editDataHandler = (e) => {
-  //   const newContents = contents.map((content) => {
-  // e는 내가 수정해서 가지고온 editData
-  // contents 배열 안에 있는 content 하나하나를 가지고 와서 아래 조건문을 만족하는 애들은 내용을 바꿔주고 아니면 그냥 그대로 돌려줌
-  // if(content.id === e.id) {return {...content, title: e.title, content: e.content}
-  // } else {
-  // return {...content}
-  // }
-  // })
-  // setContents(newContents)
-  // };
+
   return (
     // 페이지 이동에 사용되는 Route 태그를 위해선 Routes로 먼저 감싸야 한다.
     <Routes>
       {/* path="/"이기 때문에 '<주소>/'인 주소로 접속할 경우 Main 컴포넌트가 화면에 보여지게 된다.  */}
-      <Route path="/" element={<Main contents={contents} />} />
+      <Route
+        path="/"
+        element={<Main contents={contents} setContents={setContents} />}
+      />
       <Route
         path="/detail/:id"
-        element={
-          <Detail
-            contents={contents}
-            setContents={setContents}
-            // editDataHandler={editDataHandler}
-          />
-        }
+        element={<Detail contents={contents} setContents={setContents} />}
       />
       <Route
         path="/create"
@@ -67,13 +55,7 @@ function App() {
       />
       <Route
         path="/edit/:id"
-        element={
-          <Edit
-            contents={contents}
-            setContents={setContents}
-            // editDataHandler={editDataHandler}
-          />
-        }
+        element={<Edit contents={contents} setContents={setContents} />}
       />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
