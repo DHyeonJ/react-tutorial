@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-
 import Header from "../common/Header";
 import Container from "../common/Container";
 import { useNavigate } from "react-router-dom";
-import { nanoid } from "nanoid";
+import { useDispatch } from "react-redux";
+import { addData } from "../modules/todo";
 
-export default function Create({ contents, setContents }) {
+export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -80,15 +81,8 @@ export default function Create({ contents, setContents }) {
               cursor: "pointer",
             }}
             onClick={() => {
-              setContents([
-                ...contents,
-                {
-                  id: nanoid(),
-                  title,
-                  content,
-                  author: "작성자",
-                },
-              ]);
+              dispatch(addData({ title, content }));
+              navigate("/");
             }}
           >
             추가하기
