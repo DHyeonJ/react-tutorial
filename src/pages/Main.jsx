@@ -2,13 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../common/Header";
 import Container from "../common/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { removeData } from "../modules/todo";
 
-export default function Main({ contents, setContents }) {
+export default function Main() {
   const navigate = useNavigate();
-  const onDeleteHandler = (id) => {
-    const deleteData = contents.filter((item) => item.id !== id);
-    setContents(deleteData);
-  };
+  const data = useSelector((state) => state.todo);
+  console.log(data);
+  const dispatch = useDispatch();
   return (
     <>
       <Header />
@@ -36,8 +37,7 @@ export default function Main({ contents, setContents }) {
             추가
           </button>
         </div>
-        {/*  */}
-        {contents.map((item) => (
+        {data?.map((item) => (
           <div
             key={item.id}
             style={{
@@ -102,7 +102,7 @@ export default function Main({ contents, setContents }) {
                 <button
                   onClick={() => {
                     alert("삭제할까?");
-                    onDeleteHandler(item.id);
+                    dispatch(removeData(item.id));
                     navigate("/");
                   }}
                   style={{
