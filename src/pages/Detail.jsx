@@ -7,6 +7,7 @@ import { removeData } from "../modules/todo";
 
 export default function Detail() {
   const navigate = useNavigate();
+  //url로 정보를 넘겨 줄 때 사용
   const { id } = useParams();
   const dispatch = useDispatch();
   // 배열은 기본적으로 .id 해서 배열의 값을 불러올 수 없다.

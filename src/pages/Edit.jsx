@@ -11,7 +11,7 @@ export default function Edit() {
   const { id } = useParams();
   const navigate = useNavigate();
   const newData = data.find((item) => item.id === id);
-  const [title, setTitle] = useState(newData.title);
+  const [title, setTitle] = useState(newData?.title);
   const [content, setContent] = useState(newData.content);
   return (
     <Fragment>
@@ -85,6 +85,7 @@ export default function Edit() {
               // item은 배열 안에 있는 객체 형태이고, contents.map은 안에 선언한 매개변수(item)를 통해서 map함수를 이용할 수 있다.
               // 파라미터대해 공부하기
               dispatch(
+                // 일치시키는게 좋다
                 editData({ id: newData.id, title: title, content: content })
               );
             }}

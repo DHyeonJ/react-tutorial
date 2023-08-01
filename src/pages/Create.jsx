@@ -22,7 +22,7 @@ export default function Create() {
             flexDirection: "column",
             justifyContent: "space-evenly",
           }}
-          // form 안에 버튼이 있으면 버튼 클릭시 onSubmit이 실행된다. 온서브밋에 다 작성하는게 낫다!
+          // form 안에 버튼이 있으면 버튼 클릭시 onSubmit이 실행된다.
           onSubmit={(e) => {
             e.preventDefault();
             console.log("제출!");
@@ -82,7 +82,7 @@ export default function Create() {
             }}
             onClick={() => {
               dispatch(addData({ title, content }));
-              navigate("/");
+              // navigate("/");
             }}
           >
             추가하기

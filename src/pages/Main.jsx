@@ -7,8 +7,8 @@ import { removeData } from "../modules/todo";
 
 export default function Main() {
   const navigate = useNavigate();
+  // dispatch랑 remove데이터랑 같이 사용해서 실제 데이터를 변경하기 위해서 사용한다.
   const data = useSelector((state) => state.todo);
-  console.log(data);
   const dispatch = useDispatch();
   return (
     <>

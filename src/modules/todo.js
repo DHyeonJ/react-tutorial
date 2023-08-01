@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 
+// jsx는 컴포넌트 관련하는 친구...
+// todo.js가 redux랑 관련있어서 한 곳에 보관하는게 낫다.
+
 // 초기값 설정
 const initialState = [
   {
